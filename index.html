@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="style.css" />
+		<script
+			src="https://kit.fontawesome.com/8e7041d369.js"
+			crossorigin="anonymous"
+		></script>
+		<title>Todo App</title>
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="main">
+				<header class="main__header">
+					<h1 class="main__title">
+						<i class="fa-solid fa-list-check"></i>
+						<span>To-Do List</span>
+					</h1>
+				</header>
+				<form class="main__form-input">
+					<input id="input" type="text" placeholder="Enter your task..." />
+					<button id="submit" class="main__button-submit">Submit</button>
+				</form>
+				<form class="main__form-filter">
+					<input type="text" placeholder="Filter tasks..." />
+				</form>
+				<ul id="list" class="main__list"></ul>
+				<button class="main__clear">Clear All Tasks</button>
+			</div>
+		</div>
+		<script src="script.js"></script>
+	</body>
+</html>

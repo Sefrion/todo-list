@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+h1 {
+	font-size: inherit;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	font-size: 1rem;
+	font-family: 'Poppins', sans-serif;
+	background-color: #be3333;
+}
+
+.wrapper {
+	padding: 0 15px;
+}
+.main {
+	width: 450px;
+	background-color: #fff;
+	padding: 0 15px 15px;
+	border-radius: 5px;
+}
+@media (max-width: 449px) {
+	.main {
+		width: 350px;
+	}
+}
+
+.main__header {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+	padding-top: 1rem;
+}
+.main__title {
+	font-size: 3rem;
+	font-weight: bold;
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	text-align: center;
+	gap: 1rem;
+}
+.main__form-input {
+	display: flex;
+	margin-bottom: 1.5rem;
+}
+.main__form-input input {
+	/* height: 2rem; */
+	width: 100%;
+	border: 1px solid #ccc;
+	border-radius: 5px 0 0 5px;
+	padding-left: 5px;
+	font-family: inherit;
+	font-size: inherit;
+}
+.main__form-input input:focus {
+	outline: none;
+}
+.main__button-submit {
+	background-color: #e92626;
+	color: white;
+	border: none;
+	outline: none;
+	font-size: inherit;
+	font-family: inherit;
+	font-weight: normal;
+	padding: 10px 15px;
+	border-radius: 0 5px 5px 0;
+}
+.main__button-submit:hover {
+	cursor: pointer;
+	background-color: #e44949;
+}
+
+.main__form-filter {
+	margin-bottom: 2rem;
+}
+
+.main__form-filter input {
+	font-size: inherit;
+	font-family: inherit;
+	height: 45px;
+	outline: none;
+	border: none;
+	border-bottom: 1px solid #ccc;
+	width: 100%;
+}
+.main__list {
+	display: flex;
+	flex-direction: column;
+	list-style: none;
+	align-items: center;
+	gap: 10px;
+}
+.main__list-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border: 1px solid #ccc;
+	width: 100%;
+	padding: 10px;
+	border-radius: 5px;
+}
+.main__list-item i {
+	color: red;
+}
+.main__list-item i:hover {
+	cursor: pointer;
+}
+
+.main_btn-remove {
+	color: red;
+	background: none;
+	border: none;
+	outline: none;
+	font-family: inherit;
+	font-size: inherit;
+}
+.main__clear {
+	border: 1px solid #ccc;
+	outline: none;
+	background: none;
+	width: 100%;
+	font-family: inherit;
+	font-size: inherit;
+	border-radius: 5px;
+	padding: 5px 15px;
+	cursor: pointer;
+	margin-top: 2rem;
+}
