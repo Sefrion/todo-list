@@ -5,12 +5,30 @@ const taskList = document.querySelector('#list');
 const filterEl = document.querySelector('.main__form-filter');
 const btnClear = document.querySelector('.main__clear');
 
+// Function to display tasks from local storage
+
+function displayTasks() {
+	const tasksInStorage = getTasksFromStorage();
+
+	tasksInStorage.forEach((task) => addTaskToDOM(task));
+
+	show();
+}
+
 // Get tasks from local storage
 
 function getTasksFromStorage() {
-	const tasks = JSON.parse(localStorage.getItem('tasks'));
-	tasks.forEach((task) => addTaskToDOM(task));
+	let tasksInStorage;
+
+	if (localStorage.getItem('tasks') === null) {
+		tasksInStorage = [];
+	} else {
+		tasksInStorage = JSON.parse(localStorage.getItem('tasks'));
+	}
+
 	show();
+
+	return tasksInStorage;
 }
 
 // Function to add tasks to DOM
@@ -45,13 +63,7 @@ function addTaskToDOM(task) {
 }
 
 function addTaskToStorage(task) {
-	let tasksInStorage;
-
-	if (localStorage.getItem('tasks') === null) {
-		tasksInStorage = [];
-	} else {
-		tasksInStorage = JSON.parse(localStorage.getItem('tasks'));
-	}
+	const tasksInStorage = getTasksFromStorage();
 
 	tasksInStorage.push(task);
 
@@ -79,21 +91,41 @@ function createIcon(classes) {
 function clearAll() {
 	if (confirm('Are you sure you want to delete all tasks&')) {
 		while (taskList.firstChild) {
+			// Clear from DOM
 			taskList.firstChild.remove();
 		}
+		// Clear from local storage
 		localStorage.clear('tasks');
 	}
 	show();
 }
 
-// Function to remove task
+// Function to remove task from DOM and Local Storage
 
-function removeTask(e) {
+function onClickTask(e) {
 	if (e.target.parentElement.classList.contains('main_btn-remove')) {
-		e.target.parentElement.parentElement.remove();
+		removeTask(e.target.parentElement.parentElement);
 	}
+}
+
+// Function to remove task from DOM
+
+function removeTask(task) {
+	task.remove();
+
+	removeTaskFromStorage(task.textContent);
 
 	show();
+}
+
+// Function to remove task fro local storage
+
+function removeTaskFromStorage(task) {
+	let tasksFromStorage = getTasksFromStorage();
+
+	tasksFromStorage = tasksFromStorage.filter((t) => t !== task);
+
+	localStorage.setItem('tasks', JSON.stringify(tasksFromStorage));
 }
 
 // Function to filter tasks
@@ -128,11 +160,12 @@ function show() {
 
 const init = () => {
 	btnInput.addEventListener('click', addTask);
-	document.addEventListener('DOMContentLoaded', show);
 	btnClear.addEventListener('click', clearAll);
-	taskList.addEventListener('click', removeTask);
+	taskList.addEventListener('click', onClickTask);
 	filterEl.addEventListener('input', filterTasks);
-	document.addEventListener('DOMContentLoaded', getTasksFromStorage);
+	document.addEventListener('DOMContentLoaded', displayTasks);
+
+	show();
 };
 
 init();
