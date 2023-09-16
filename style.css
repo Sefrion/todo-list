@@ -19,7 +19,9 @@ body {
 	font-family: 'Poppins', sans-serif;
 	background-color: #be3333;
 }
-
+.edit-mode {
+	color: #ccc;
+}
 .wrapper {
 	padding: 0 15px;
 }

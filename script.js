@@ -4,6 +4,7 @@ const inputEl = document.querySelector('#input');
 const taskList = document.querySelector('#list');
 const filterEl = document.querySelector('.main__form-filter');
 const btnClear = document.querySelector('.main__clear');
+let isEditMode = false;
 
 // Function to display tasks from local storage
 
@@ -31,7 +32,7 @@ function getTasksFromStorage() {
 	return tasksInStorage;
 }
 
-// Function to add tasks to DOM
+// Function to add tasks to DOM and Local Storage
 
 function addTask(e) {
 	e.preventDefault();
@@ -39,6 +40,18 @@ function addTask(e) {
 
 	if (newTask === '') {
 		alert('Please enter a task');
+		return;
+	}
+
+	if (isEditMode) {
+		const taskToEdit = taskList.querySelector('.edit-mode');
+		removeTaskFromStorage(taskToEdit.textContent);
+		taskToEdit.classList.remove('edit-mode');
+		taskToEdit.remove();
+
+		isEditMode = false;
+	} else if (checkIfTaskExists(newTask)) {
+		alert('Task already exists!');
 		return;
 	}
 
@@ -100,12 +113,35 @@ function clearAll() {
 	show();
 }
 
+// Check if task already exists
+
+const checkIfTaskExists = (task) => {
+	const tasksFromStorage = getTasksFromStorage();
+	return tasksFromStorage.includes(task);
+};
+
 // Function to remove task from DOM and Local Storage
 
 function onClickTask(e) {
 	if (e.target.parentElement.classList.contains('main_btn-remove')) {
 		removeTask(e.target.parentElement.parentElement);
+	} else {
+		setTaskToEdit(e.target);
 	}
+}
+
+//  Edit task
+function setTaskToEdit(task) {
+	isEditMode = true;
+
+	taskList
+		.querySelectorAll('li')
+		.forEach((t) => t.classList.remove('edit-mode'));
+
+	task.classList.add('edit-mode');
+	btnInput.textContent = 'Update';
+	btnInput.style.backgroundColor = 'green';
+	inputEl.value = task.textContent;
 }
 
 // Function to remove task from DOM
@@ -154,6 +190,11 @@ function show() {
 		filterEl.style.display = 'block';
 		btnClear.style.display = 'block';
 	}
+
+	btnInput.textContent = 'Submit';
+	btnInput.style.backgroundColor = '#e92626';
+
+	isEditMode = false;
 }
 
 //  Event Listeners
